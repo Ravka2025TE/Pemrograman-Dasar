@@ -1,0 +1,124 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int Total_students = 20;
+
+struct studentType
+{
+    string studentFName;
+    string studentLName;
+    int testScore; // 0–100
+    char grade;    // A–F
+};
+
+void getData(studentType list[], int size);
+void assignGrade(studentType list[], int size);
+int findHighest(const studentType list[], int size);
+void printHighest(const studentType list[], int size, int highest);
+void printAll(const studentType list[], int size);
+string leftJustify(string s, int width);
+
+int main()
+{
+    studentType classList[Total_students];
+    int highestScore;
+
+    getData(classList, Total_students);
+    assignGrade(classList, Total_students);
+    highestScore = findHighest(classList, Total_students);
+
+    printAll(classList, Total_students);
+    cout << endl;
+    printHighest(classList, Total_students, highestScore);
+
+    return 0;
+}
+
+// Input for 20 students
+void getData(studentType list[], int size)
+{
+    cout << "Masukkan nama pertama, nama akhir, dan nilai untuk "
+         << size << " mahasiswa:" << endl;
+
+    for (int i = 0; i < size; i++)
+    {
+        cin >> list[i].studentFName >> list[i].studentLName >> list[i].testScore;
+
+        if (list[i].testScore < 0)
+            list[i].testScore = 0;
+        else if (list[i].testScore > 100)
+            list[i].testScore = 100;
+    }
+}
+
+// Assign letter grade
+void assignGrade(studentType list[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        int score = list[i].testScore;
+
+        if (score >= 90)
+            list[i].grade = 'A';
+        else if (score >= 60)
+            list[i].grade = 'B';
+        else if (score >= 20)
+            list[i].grade = 'C';
+        else if (score >= 10)
+            list[i].grade = 'D';
+        else
+            list[i].grade = 'E';
+    }
+}
+
+// Find highest test score in the class
+int findHighest(const studentType list[], int size)
+{
+    int highest = list[0].testScore;
+
+    for (int i = 1; i < size; i++)
+        if (list[i].testScore > highest)
+            highest = list[i].testScore;
+
+    return highest;
+}
+
+// Print students who got the highest score
+void printHighest(const studentType list[], int size, int highest)
+{
+    cout << "Nilai tertinggi: " << highest << endl;
+    cout << "Mahasiswa dengan nilai tertinggi :" << endl;
+
+    for (int i = 0; i < size; i++)
+        if (list[i].testScore == highest)
+        {
+            string fullName = list[i].studentLName + ", " + list[i].studentFName;
+            cout << leftJustify(fullName, 25)
+                 << " Score: " << list[i].testScore
+                 << " Grade: " << list[i].grade << endl;
+        }
+}
+
+// Print entire class list
+void printAll(const studentType list[], int size)
+{
+    cout << endl
+         << "CLASS LIST" << endl;
+
+    for (int i = 0; i < size; i++)
+    {
+        string fullName = list[i].studentLName + ", " + list[i].studentFName;
+
+        cout << leftJustify(fullName, 25)
+             << " Score: " << list[i].testScore
+             << " Grade: " << list[i].grade << endl;
+    }
+}
+
+string leftJustify(string s, int width)
+{
+    while (s.length() < (unsigned)width)
+        s += " ";
+    return s;
+}
