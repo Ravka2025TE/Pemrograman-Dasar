@@ -6,8 +6,8 @@ const int Total_students = 20;
 
 struct studentType
 {
-    string studentFName;
-    string studentLName;
+    string studentName;
+    string studentName;
     int testScore; // 0–100
     char grade;    // A–F
 };
@@ -43,7 +43,7 @@ void getData(studentType list[], int size)
 
     for (int i = 0; i < size; i++)
     {
-        cin >> list[i].studentFName >> list[i].studentLName >> list[i].testScore;
+        cin >> list[i].studentName >> list[i].studentName >> list[i].testScore;
 
         if (list[i].testScore < 0)
             list[i].testScore = 0;
@@ -93,7 +93,7 @@ void printHighest(const studentType list[], int size, int highest)
     for (int i = 0; i < size; i++)
         if (list[i].testScore == highest)
         {
-            string fullName = list[i].studentLName + ", " + list[i].studentFName;
+            string fullName = list[i].studentName + ", " + list[i].studentName;
             cout << leftJustify(fullName, 25)
                  << " Score: " << list[i].testScore
                  << " Grade: " << list[i].grade << endl;
@@ -108,7 +108,7 @@ void printAll(const studentType list[], int size)
 
     for (int i = 0; i < size; i++)
     {
-        string fullName = list[i].studentLName + ", " + list[i].studentFName;
+        string fullName = list[i].studentName + ", " + list[i].studentName;
 
         cout << leftJustify(fullName, 25)
              << " Score: " << list[i].testScore
